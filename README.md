@@ -1,159 +1,164 @@
-# Caricamento Prodotti WooCommerce
+# Applicazioni Fantini Pelletteria
+
+Repository contenente le applicazioni desktop per la gestione dei prodotti Fantini Pelletteria.
+
+## 📁 Struttura del Progetto
+
+```
+App-Fantini-Pelletteria/
+├── 📱 WooCommerce Uploader/          # App per caricamento prodotti
+│   ├── App/
+│   │   └── main_1.py                # Applicazione principale PyQt6
+│   ├── Anagrafiche/                  # File di configurazione
+│   ├── Colori/                       # Configurazione colori
+│   └── README_WooCommerce.md         # Documentazione specifica
+├── 🖼️ Photo Editor/                  # App per scontornamento foto
+│   ├── dashboard/                    # Server Flask
+│   │   ├── app.py                   # Server principale
+│   │   ├── templates/               # Template HTML
+│   │   └── static/                  # File statici
+│   ├── Applicazione per Scontornare PhotoRoom.py
+│   ├── Applicazione per Scontornare.py
+│   └── Riepilogo Shooting.py
+└── 📋 Documentazione/
+    ├── README.md                     # Questo file
+    ├── LICENSE                       # Licenza MIT
+    └── requirements.txt              # Dipendenze Python
+```
+
+## 🚀 Applicazioni Disponibili
+
+### 1. WooCommerce Uploader
+**Tecnologie**: PyQt6, WooCommerce API, WordPress Media Library
 
 Applicazione desktop per il caricamento automatico di prodotti su siti WooCommerce con gestione multilingua tramite WPML.
 
-## Caratteristiche
-
+#### Caratteristiche:
 - **Interfaccia grafica intuitiva** con step-by-step wizard
 - **Supporto multilingua** con WPML (italiano/inglese)
 - **Caricamento automatico immagini** nella libreria media WordPress
 - **Gestione prodotti B2B** su business.fantinipelletteria.com
 - **Gestione prodotti retail** su genuineleather.it
 - **Struttura cartelle organizzata** per prodotti da caricare/caricati
-- **Gestione categorie, tag e attributi** automatica
-- **Packaging personalizzabile** con immagini automatiche
-- **Posizionamento prodotti** nel catalogo
 
-## Struttura del Progetto
-
+#### Installazione:
+```bash
+cd "WooCommerce Uploader"
+pip install -r requirements.txt
+python App/main_1.py
 ```
-Caricamento_Prodotti/
+
+#### Documentazione completa: [README_WooCommerce.md](WooCommerce%20Uploader/README_WooCommerce.md)
+
+### 2. Photo Editor
+**Tecnologie**: Flask, PhotoRoom API, Python
+
+Applicazione web per la gestione e scontornamento automatico di foto utilizzando PhotoRoom.
+
+#### Caratteristiche:
+- **Dashboard Web**: Interfaccia web per gestire le applicazioni
+- **PhotoRoom**: Scontornamento automatico delle foto
+- **Ridimensionamento**: Ridimensionamento automatico delle immagini
+- **Riepilogo Shooting**: Generazione di report delle sessioni
+
+#### Installazione:
+```bash
+cd "Photo Editor/dashboard"
+pip install flask requests pillow
+python app.py
+```
+
+#### Utilizzo:
+1. Accedi al dashboard web all'indirizzo `http://localhost:5000`
+2. Utilizza i pulsanti per avviare le diverse applicazioni
+3. Le foto vengono processate automaticamente attraverso le cartelle
+
+## 📋 Requisiti Generali
+
+- Python 3.8+
+- PyQt6 (per WooCommerce Uploader)
+- Flask (per Photo Editor)
+- requests
+- pillow
+
+## 🔧 Installazione Completa
+
+```bash
+# Clona il repository
+git clone https://github.com/samfantini17/App-Fantini-Pelletteria.git
+cd App-Fantini-Pelletteria
+
+# Installa le dipendenze
+pip install -r requirements.txt
+
+# Per WooCommerce Uploader
+cd "WooCommerce Uploader"
+python App/main_1.py
+
+# Per Photo Editor
+cd "Photo Editor/dashboard"
+python app.py
+```
+
+## 🛠️ Configurazione
+
+### WooCommerce Uploader
+1. Copia `config_example.py` come `config.py`
+2. Inserisci le tue credenziali API WooCommerce
+3. Configura i percorsi delle cartelle
+
+### Photo Editor
+1. Configura le credenziali PhotoRoom API
+2. Organizza le foto nelle cartelle appropriate
+3. Avvia il server Flask
+
+## 📁 Struttura Dettagliata
+
+### WooCommerce Uploader
+```
+WooCommerce Uploader/
 ├── 1-Prodotti_da_caricare/     # Prodotti da processare
 ├── 2-Prodotti_caricati/         # Prodotti completati
 ├── Anagrafiche/                  # File di configurazione
 │   ├── packaging.csv
 │   └── prefissi_nome_prodotto.csv
-├── App/                          # Codice applicazione
-│   └── main_1.py                # File principale
-└── Colori/                       # Configurazione colori
-    └── Colori.txt
+├── App/
+│   └── main_1.py                # Applicazione principale
+└── Colori/
+    └── Colori.txt               # Configurazione colori
 ```
 
-## Requisiti
-
-- Python 3.8+
-- PyQt6
-- requests
-- WooCommerce API access
-- WordPress Media Library access
-
-## Installazione
-
-1. Clona il repository:
-```bash
-git clone https://github.com/tuousername/caricamento-prodotti-woocommerce.git
-cd caricamento-prodotti-woocommerce
+### Photo Editor
+```
+Photo Editor/
+├── dashboard/
+│   ├── 1_grezze/               # Foto originali
+│   ├── 2_da_scontornare/       # Foto da processare
+│   ├── 3_ridimensionate_scontornate/  # Foto processate
+│   ├── 4_finali/               # Foto finali
+│   ├── app.py                   # Server Flask
+│   ├── templates/
+│   │   └── index.html
+│   └── static/
+├── Applicazione per Scontornare PhotoRoom.py
+├── Applicazione per Scontornare.py
+└── Riepilogo Shooting.py
 ```
 
-2. Installa le dipendenze:
-```bash
-pip install PyQt6 requests
-```
+## 🔒 Sicurezza
 
-3. Configura le credenziali API nel file `App/main_1.py`:
-```python
-# Credenziali WooCommerce
-CONSUMER_KEY = "your_consumer_key"
-CONSUMER_SECRET = "your_consumer_secret"
+- **NON caricare mai** le credenziali reali su GitHub
+- I file `config_example.py` sono solo esempi
+- Le cartelle con dati sensibili sono ignorate dal .gitignore
 
-# Credenziali WordPress Media
-WP_USERNAME = "your_username"
-WP_APP_PASSWORD = "your_app_password"
-
-# Credenziali B2B
-B2B_CONSUMER_KEY = "your_b2b_consumer_key"
-B2B_CONSUMER_SECRET = "your_b2b_consumer_secret"
-```
-
-## Utilizzo
-
-1. **Preparazione prodotti**: Organizza i prodotti nelle cartelle `1-Prodotti_da_caricare/` con la struttura:
-   ```
-   NomeProdotto+Prezzo+Dimensioni+Peso/
-   ├── SKU1!/
-   │   ├── 1.jpg
-   │   ├── 2.jpg
-   │   └── 3.jpg
-   └── SKU2/
-       ├── 1.jpg
-       ├── 2.jpg
-       └── 3.jpg
-   ```
-
-2. **Avvio applicazione**:
-   ```bash
-   python App/main_1.py
-   ```
-
-3. **Processo di caricamento**:
-   - Step 1: Seleziona prefisso prodotto
-   - Step 2: Scegli Brand o B2B
-   - Step 3: Seleziona categorie (primaria e secondarie)
-   - Step 4: Seleziona tag (solo per retail)
-   - Step 5: Scegli packaging
-   - Step 6: Imposta posizione nel catalogo (solo per retail)
-   - Step 7: Assegna colori e tag alle immagini
-   - Step 8: Rivedi e carica
-
-4. **Completamento**: I prodotti vengono automaticamente spostati in `2-Prodotti_caricati/`
-
-## Configurazione
-
-### File Anagrafiche
-
-- `prefissi_nome_prodotto.csv`: Lista dei prefissi dei nomi prodotto
-- `packaging.csv`: Lista delle opzioni di packaging disponibili
-
-### Credenziali API
-
-L'applicazione supporta due siti:
-- **GenuineLeather.it** (retail)
-- **Business.FantiniPelletteria.com** (B2B)
-
-Ogni sito richiede credenziali separate per WooCommerce API e WordPress Media Library.
-
-## Funzionalità Avanzate
-
-### Gestione Multilingua
-- Caricamento automatico in italiano
-- Traduzioni gestite manualmente tramite WPML backend
-- Immagini condivise tra le traduzioni
-
-### Gestione Immagini
-- Caricamento automatico nella libreria media WordPress
-- Nomi file univoci per evitare conflitti
-- Immagini packaging automatiche
-- Posizionamento corretto delle immagini
-
-### Prodotti B2B vs Retail
-- **B2B**: Prodotti semplici, solo colore, visibilità nascosta
-- **Retail**: Prodotti variabili con attributi colore, tag, posizionamento
-
-## Troubleshooting
-
-### Errori di Autenticazione
-- Verifica le credenziali API WooCommerce
-- Controlla le credenziali WordPress Media Library
-- Assicurati che le Application Passwords siano abilitate
-
-### Errori di Caricamento Immagini
-- Verifica che i file immagine esistano
-- Controlla i permessi di scrittura
-- Verifica la dimensione dei file
-
-### Prodotti Non Visibili
-- Controlla lo status "instock"
-- Verifica la visibilità del catalogo
-- Controlla le categorie assegnate
-
-## Licenza
+## 📄 Licenza
 
 Questo progetto è rilasciato sotto licenza MIT.
 
-## Contributi
+## 🤝 Contributi
 
 Le pull request sono benvenute. Per modifiche importanti, apri prima una issue per discutere cosa vorresti cambiare.
 
-## Supporto
+## 📞 Supporto
 
 Per problemi o domande, apri una issue su GitHub. 

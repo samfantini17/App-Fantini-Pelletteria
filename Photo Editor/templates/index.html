@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Lancia Script</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      margin-top: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      width: 250px;
+      height: auto;
+      margin-bottom: 30px;
+      border-radius: 20px;
+    }
+
+    .title {
+      color: #333;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .app-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .app-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      border-color: #667eea;
+    }
+
+    .app-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .app-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .app-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .icon-photoroom {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    }
+
+    .icon-scontornare {
+      background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    }
+
+    .icon-shooting {
+      background: linear-gradient(45deg, #a8edea, #fed6e3);
+      color: #333;
+    }
+
+    .app-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+
+    .app-description {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .launch-btn {
+      width: 100%;
+      padding: 15px 25px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .launch-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .launch-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .launch-btn:hover::before {
+      left: 100%;
+    }
+
+    .launch-btn:active {
+      transform: translateY(0);
+    }
+
+    .flash-message {
+      background: linear-gradient(45deg, #4ecdc4, #44a08d);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+      animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+        margin-top: 10px;
+      }
+
+      .title {
+        font-size: 2rem;
+      }
+
+      .apps-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .app-card {
+        padding: 20px;
+      }
+    }
+
+    .loading {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <img src="/static/logo.png" alt="Logo Fantini" class="logo">
+      <h1 class="title">Interfaccia di lancio applicazioni</h1>
+      <p class="subtitle">Gestisci le tue applicazioni di elaborazione immagini</p>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-message" id="flash-message">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="apps-grid">
+      <div class="app-card">
+        <div class="app-header">
+          <div class="app-icon icon-scontornare">
+            <i class="fas fa-cut"></i>
+          </div>
+          <h3 class="app-title">Scontorna Foto</h3>
+        </div>
+        <p class="app-description">
+          Inserire le foto da ritoccare nella cartella <strong>Da scontornare</strong>, 
+          avviare il programma e le foto scontornate verranno depositate nella cartella <strong>Finali</strong>.
+        </p>
+        <form action="/run/scontornare" onsubmit="showLoading()">
+          <button type="submit" class="launch-btn">
+            <i class="fas fa-play"></i> Avvia Scontornamento
+          </button>
+        </form>
+      </div>
+
+      <div class="app-card">
+        <div class="app-header">
+          <div class="app-icon icon-shooting">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+          <h3 class="app-title">Riepilogo Shooting</h3>
+        </div>
+        <p class="app-description">
+          Selezionare la cartella da controllare e verificare il file <strong>report_foto_borse.csv</strong> 
+          per ottenere un riepilogo completo dello shooting.
+        </p>
+        <form action="/run/shooting" onsubmit="showLoading()">
+          <button type="submit" class="launch-btn">
+            <i class="fas fa-chart-line"></i> Genera Riepilogo
+          </button>
+        </form>
+      </div>
+
+      <div class="app-card">
+        <div class="app-header">
+          <div class="app-icon icon-photoroom">
+            <i class="fas fa-magic"></i>
+          </div>
+          <h3 class="app-title">Scontorna con PhotoRoom</h3>
+        </div>
+        <p class="app-description">
+          Sfrutta l'intelligenza artificiale di PhotoRoom per scontornare le immagini. 
+          Le immagini finali saranno salvate in <strong>Finali</strong> con suffisso <strong>_PR</strong>.
+        </p>
+        <form action="/run/photoroom" onsubmit="showLoading()">
+          <button type="submit" class="launch-btn">
+            <i class="fas fa-robot"></i> Avvia PhotoRoom
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2024 Dashboard Script - Fantini</p>
+    </div>
+  </div>
+
+  <script>
+    function showLoading() {
+      document.getElementById('loading').style.display = 'flex';
+    }
+
+    // Nasconde automaticamente il messaggio flash dopo 5 secondi
+    setTimeout(function () {
+      const flash = document.getElementById('flash-message');
+      if (flash) {
+        flash.style.opacity = '0';
+        flash.style.transform = 'translateY(-20px)';
+        setTimeout(() => flash.style.display = 'none', 500);
+      }
+    }, 5000);
+
+    // Nasconde il loading se la pagina viene ricaricata
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
