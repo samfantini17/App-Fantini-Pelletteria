@@ -46,4 +46,4 @@ python dashboard/app.py
 - Python
 - Flask
 - PhotoRoom API
-- HTML/CSS 
+- HTML/CSS
